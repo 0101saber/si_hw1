@@ -1,0 +1,64 @@
+@startuml
+
+interface UserInterface {
+    +show_message(message)
+    +get_input(prompt)
+    +show_contact(name, phones, birthday=None)
+    +show_all_contacts(contacts)
+    +show_upcoming_birthdays(upcoming_birthdays)
+}
+
+class ConsoleInterface {
+    +show_message(message)
+    +get_input(prompt)
+    +show_contact(name, phones, birthday=None)
+    +show_all_contacts(contacts)
+    +show_upcoming_birthdays(upcoming_birthdays)
+}
+
+UserInterface <|-- ConsoleInterface
+
+class AddressBook {
+    +add_record(record: Record)
+    +find(name)
+    +update(name, phone=None, birthday=None)
+    +delete(name)
+    +get_upcoming_birthdays(days=7)
+}
+
+class Record {
+    +name: Name
+    +phones: list
+    +birthday: Birthday
+    +add_birthday(birthday_str)
+    +add_phone(phone)
+    +edit_phone(phone_old, phone_new)
+    +find_phone(phone)
+    +remove_phone(phone)
+}
+
+class Field {
+    +value
+}
+
+class Name {
+    +value
+}
+
+class Phone {
+    +value
+}
+
+class Birthday {
+    +value
+}
+
+Field <|-- Name
+Field <|-- Phone
+Field <|-- Birthday
+AddressBook *-- Record
+Record *-- Name
+Record *-- Phone
+Record *-- Birthday
+
+@enduml
